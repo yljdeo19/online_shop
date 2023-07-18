@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <br><br><br><br><br>
+  <div class="text-center">
+  	<h1>Спасибо!</h1>
+  	<p>Ваш заказ успешно принят. Ваш номер заказа- 
+  	<strong>{{ order.id }}</strong></p>
+  	<p><a href="{% url 'my_site:index' %}">Вернуться на главную</a></p>
+  </div><br><br><br><br><br>
+{% endblock %}

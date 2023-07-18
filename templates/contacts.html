@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="information-contact" class="container">
+	<nav aria-label="breadcrumb">
+	<ul class="breadcrumb us-breadcrumb">
+						<li ><a href="{% url 'my_site:index' %}"><i class="fa fa-home"></i></a></li>
+        <li style="padding-right: 10px; padding-left: 10px"> 🠒</li>
+								<li> <small>Связаться с нами</small></li>
+				</ul>
+</nav>
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement":
+	[
+																{
+				"@type": "ListItem",
+				"position": 1,
+				"item":
+				{
+					"@id": "https://sulubopem.kz/index.php?route=information/contact",
+					"name": "Связаться с нами"
+				}
+			}						]
+}
+</script>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="us-main-shop-title">Добро пожаловать!</h1>
+		</div>
+	</div>
+	<div class="content-top-box"></div>
+	<div class="row">
+		{% if messages %}
+		<ul class="messages">
+		    {% for message in messages %}
+		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+		        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+		        {{ message }}
+		    </li>
+		    {% endfor %}
+		</ul>
+		{% endif %}
+	    	    	    	    <div id="content" class="col-sm-12">
+		    <div class="us-content">
+			    <div class="us-content-contact d-flex">
+			    	<div class="us-contact-form-box">
+			    		<form action="{% url 'my_site:contacts' %}" method="post" enctype="multipart/form-data">
+			    			{% csrf_token %}
+				          <div class="form-group">
+				            <label for="input-name"><span class="required">*</span>Имя</label>
+				            				            <input type="text" name="name" value="" id="input-name" class="form-control" placeholder="Имя">
+				          </div>
+				          <div class="form-group">
+				            <label for="input-email"><span class="required">*</span>Email</label>
+				            				            <input type="text" name="email" value="" id="input-email" class="form-control" placeholder="Email">
+				          </div>
+				          <div class="form-group">
+				            <label for="input-enquiry"><span class="required">*</span> Сообщение</label>
+				            				            <textarea name="body" rows="10" id="input-enquiry" class="form-control" placeholder="Ваше сообщение"></textarea>
+				          </div>
+				          
+						  				          <div class="us-form-checkbox-group">
+				            						  </div>
+						  				          <div class="btn-group">
+					        <input class="us-module-btn us-module-btn-green" type="submit" value="Применить">
+				          </div>
+					    </form>
+			    	</div>
+			    				    	<div class="us-content-border">&nbsp;</div>
+			    	<div class="us-content-contact-offer">
+			    		<p><b>Вы можете оформить заказ:</b></p>
+<p>— позвонив по телефону&nbsp;(с 10.00 — 18.00):<br>
+<a href="tel:77074650397" target="_blank">+7707 465 0397</a><br>
+<a href="tel:77076111888" target="_blank">+7707 611 1888</a></p>
+<p>— написав нам в&nbsp; <a href="whatsapp://send?phone=+7707%204650397" target="_blank">Whatsapp</a>;<br>— отправив на e-mail:&nbsp;<a href="mailto:sevibebe.kz@gmail.com" target="_blank">sevibebe.kz@gmail.com</a><span style="outline: none;"></span>;<br style="outline: none;">— через сайт&nbsp;<a href="{% url 'my_site:index' %}">«Sulu Bopem»</a><span style="outline: none;"></span>&nbsp;и выбрав нужный товар.</p>
+<p><br></p>
+<p><b>Демонстрационный зал в Алматы находится по адресу:</b></p>
+<p>ул. Жарокова 219, угол Басенова.</p>
+<ul><li>С понедельника по пятницу с 10:00 до 18:00,&nbsp;</li>
+<li>Перерыв на обед с 13:00 до 14:00</li>
+<li>Суббота/Воскресенье выходной.</li></ul>
+					</div>
+								    </div>
+			    		    </div>
+	    </div>
+	    
+	</div>
+	
+</div>
+{% endblock %}

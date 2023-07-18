@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="ru">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">                                 			
+	<title>Sulubopem</title>
+
+	<meta name="description" content="Интернет-магазин детских товаров" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<script src="{% static 'js/jquery.js' %}"></script>
+    <style>
+        /* Dropdown Button */
+.dropbtn {
+    border-radius: 0px;
+    opacity: 0.5;
+  background-color: #8f6743;
+  color: white;
+    font-size: 16px;
+  border: none;
+    padding: 13px 65px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #252473;
+    text-decoration: none;
+  display: block;
+    padding: 12px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    opacity: 1;
+    background-color: #252473;
+}
+    </style>
+</head>
+<body>				
+	<div id="us_menu_mobile_box" class="d-lg-none">
+		<div class="modal-header">
+			<h5 class="modal-title">Меню</h5>
+			<button id="us_menu_mobile_close" type="button" class="us-close">
+				<span aria-hidden="true" class="us-modal-close-icon us-modal-close-left"></span>
+				<span aria-hidden="true" class="us-modal-close-icon us-modal-close-right"></span>
+			</button>
+		</div>
+		<div id="us_menu_mobile_content" style="padding-left: 25px;padding-right: 25px;padding-top: 15px;">
+			<ul class="us-categories-wall-list list-unstyled">
+				<li class="us-categories-wall-child">
+					<a href="{% url 'my_site:index' %}">Все</a>
+				</li>
+				{% for category in categories %}
+				<li  class="us-categories-wall-child">
+					<a href="{% url 'my_site:index' category=category.id %}">{{category.title}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<nav id="top">
+		<div class="container d-flex h-100">
+			<div id="us_menu_mobile_button" class="us-menu-mobile d-lg-none h-100">
+				<i class="fa fa-bars"></i>
+			</div>
+			
+			<div id="top-left" class="mr-auto d-flex align-items-center">
+				<div class="dropdown h-100">
+					<a class="btn top-address btn-link dropdown-toggl d-flex align-items-center h-100" href="javascript:;" role="button" id="dropdownMenuAddress" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-map-marker"></i> 
+						<span>Казахстан, г.Алматы, ул. Жарокова 219, угол Басенова.</span>
+					</a>
+				</div>
+			</div>
+			<div id="top-links" class="nav ml-auto d-flex"> 
+				<div class="dropdown" id="us-account-dropdown">
+					{% if user.is_authenticated %}
+					<span class="btn btn-user btn-link btn-block h-100" >	
+						<i class="fa fa-user"></i>
+						<span class="hidden-xs">Привет {{request.user.username}},  <a style="color:white" href="{% url 'logout' %}"><b>Выйти</b></a></span>
+					</span>
+					{% else %}
+					<a href="{% url 'login' %}" title="Личный кабинет" class="btn btn-user btn-link btn-block h-100" role="button" aria-haspopup="true">
+						<span class="hidden-xs">Войти</span>
+					</a>
+					{% endif %}
+				</div>
+			</div>
+
+		</div>
+	</nav>
+	<header>
+		<div class="container">
+			<div class="row align-items-center">
+				<div id="logo" class="col-6 col-lg-3 col-md-3 us-logo-box text-center">
+					<img src="{% static 'img/SuluBopem logo001.png' %}" title="Sulubopem" alt="Sulubopem" class="us-logo-img" />
+				</div>
+				<div class="col-12 col-lg-5 col-md-6 us-search-box">
+					{% block search %}
+					{% endblock %}
+				</div>
+				<div class="col-6 col-lg-2 col-md-3 us-phone-box d-flex align-items-center">
+					<div class="us-phone-img">
+						<img src="{% static 'img/pnone-icon.svg' %}" alt="phone-icon">
+					</div>
+					<div class="us-phone-content">
+						<a class="btn top-phone-btn dropdown-toggle" href="tel:+77074650397" role="button" id="us-phones-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span>+7707 465 0397</span>
+						</a>
+						
+						<a href="{% url 'my_site:contacts' %}" class="us-phone-link">Заказать звонок</a>	
+					</div>
+				</div>
+				<div  class="col-lg-2 us-cart-box d-flex align-items-center justify-content-end">
+					<!-- <button type="button" class="us-cart-img">
+						<img src="{% static 'img/cart-icon.svg' %}" alt="cart-icon">
+					</button> -->
+					<div class="us-cart-content">
+						{% with total_items=cart|length %}
+						 {% if total_items > 0 %}
+
+                            <div id="cart" class="us-cart-box d-flex">
+                                <img src="{% static 'img/cart-icon.svg' %}" alt="cart-icon" style="padding-right: 10px">
+	                            <div class="us-cart-content">
+		                            <p class="us-cart-text">{{ cart.get_total_price }}₸</p>
+		                                <a href="{% url 'cart:cart_detail' %}" class="us-cart-link">
+			                                Оформить заказ
+		                                    </a>
+	                            </div>
+                                </div>
+					     {% else %}
+                             <div id="cart" class="us-cart-box d-flex">
+			                        <img src="{% static 'img/cart-icon.svg' %}" alt="cart-icon" style="padding-right: 10px">
+
+	                            <div class="us-cart-content">
+		                            <p class="us-cart-text">0₸</p>
+		                                <a href="{% url 'cart:cart_detail' %}" class="us-cart-link">
+			                                Оформить заказ
+		                                    </a>
+	                            </div>
+                                </div>
+					     {% endif %}
+					  	{% endwith %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="menu-row sticky-top">
+		<div class="container">
+			<div class="row">
+
+				<div id="oct-megamenu-box" class="col-lg-12">
+					<nav id="oct-megamenu" class="navbar">
+						<ul class="nav navbar-nav flex-row">
+							<li class="oct-mm-simple-link" style="padding-right: 20px">
+                                <div class="dropdown">
+                                <a href="{% url 'my_site:index' %}" class="btn dropbtn" >Главная страница</a>
+                              <div class="dropdown-content">
+                                  {% for category in categories %}
+                                <a href="{% url 'my_site:index' category=category.id %}" style="padding-right: 193px">{{category.title}}</a>
+                                  {% endfor %}
+                              </div>
+                                    </div>
+                            </li>
+							<li class="oct-mm-simple-link" style="padding-right: 20px"><a href="{% url 'my_site:about' %}" >О нас</a></li>
+							<li class="oct-mm-simple-link" style="padding-right: 20px"><a href="{% url 'my_site:contacts' %}" >Контакты</a></li>
+						</ul>
+					</nav>
+				</div>
+
+				<ul id="us_mobile_megamenu">
+
+					<!-- Simple Link -->
+					<li class="oct-menu-li"><a href="/about_us"  class="oct-menu-a"><span class="oct-menu-item-name">О нас</span></a></li>
+					<li class="oct-menu-li"><a href="/index.php?route=information/contact"  class="oct-menu-a"><span class="oct-menu-item-name">Контакты</span></a></li>
+
+
+				</ul>
+				<script>
+					$(document).ready(function() {
+						$('#us_menu_mobile_content #oct-menu-ul').append($('#us_mobile_megamenu > li'));
+					});
+				</script>
+
+			</div>
+		</div>
+	</div>
+	{% block content %}
+
+
+	{% endblock %}
+
+		
+
+	<footer>
+
+		<div class="container footer-sub">
+
+			<div class="row">
+				<div class="col-lg-3 col-md-6 us-footer-box">
+					<div class="us-footer-title">Информация<i class="fas fa-chevron-down d-md-none"></i></div>
+					<ul class="us-footer-list  list-unstyled">
+						<li class="us-footer-item us-footer-information">
+							<a href="" class="us-footer-link">О нас</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6 us-footer-box">
+					<div class="us-footer-title">
+						Категории<i class="fa fa-chevron-down d-md-none"></i>
+					</div>
+					<ul class="us-footer-list  list-unstyled mb-0">
+						<li class="us-footer-item">
+							<a href="" class="us-footer-link">Одежда</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6 us-footer-box us-footer-shedule-box">
+					<div class="us-footer-title">
+						Время работы<i class="fa fa-chevron-down d-md-none"></i>
+					</div>
+					<div class="us-footer-list">
+						<div class="us-footer-social">
+							<div class="us-footer-social-text us-footer-text">Мы в социальных сетях:</div>
+							<ul class="us-footer-social-list d-flex list-unstyled">
+								<li class="us-footer-social-item"><a href="https://www.facebook.com/SuluBopem/" class="us-footer-social-link us-footer-social-link-fa-facebook-f"><i class="fa fa-facebook-f"></i></a></li>
+								<li class="us-footer-social-item"><a href="https://www.instagram.com/sulu_bopem.kz/?igshid=g2f9ox9hv1sn" class="us-footer-social-link us-footer-social-link-fa-instagram"><i class="fa fa-instagram"></i></a></li>
+								<li class="us-footer-social-item"><a href="https://www.youtube.com/channel/UC_PYLP3Zc0nDTKXfHD5Gzkg" class="us-footer-social-link us-footer-social-link-fa-youtube"><i class="fa fa-youtube"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 us-footer-box">
+					<div class="us-footer-title">Наши контакты<i class="fa fa-chevron-down d-md-none"></i></div>
+					<div class="us-footer-list us-footer-contact-box">
+						<a class="btn us-footer-phone-btn top-phone-btn dropdown-toggle d-flex align-items-center" href="tel:+77074650397
+						" role="button" id="dropdownMenu5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+7707 465 0397
+						<a href="mailto:sevibebe.kz@gmail.com" class="us-footer-mail">sevibebe.kz@gmail.com</a>
+						<div class="us-footer-address">Казахстан, г.Алматы, ул. Жарокова 219, угол Басенова.</div>
+						<ul class="us-footer-contact-list d-flex list-unstyled">
+
+							<li class="us-footer-contact-item us-fixed-contact-viber-mobile"><a href="viber://add?number=+77076111888" class="us-footer-contact-link us-footer-contact-link-viber"><i class="fa fa-viber"></i></a></li>
+							<li class="us-footer-contact-item"><a target="_blank" href="https://t.me/+77076111888" class="us-footer-contact-link us-footer-contact-link-telegram"><i class="fa fa-telegram"></i></a></li>
+							<li class="us-footer-contact-item"><a href="whatsapp://send?phone=+77074650397" class="us-footer-contact-link us-footer-contact-link-whatsapp"><i class="fa fa-whatsapp"></i></a></li>
+						</ul>
+                        </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<div class="modal-holder"></div>
+
+
+
+</body>
+</html>

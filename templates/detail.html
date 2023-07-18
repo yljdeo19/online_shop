@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+<nav aria-label="breadcrumb">
+	<ul class="breadcrumb us-breadcrumb">
+		<li class="breadcrumb-item us-breadcrumb-item"><a href="{% url 'my_site:index' %}"><i class="fa fa-home"></i></a></li>
+		<li class="breadcrumb-item us-breadcrumb-item">{{good.title}}</li>
+	</ul>
+</nav>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="us-main-shop-title">{{good.title}}</h1>
+	</div>
+</div>
+<div class="content-top-box"></div>
+<div class="row">
+	<div id="content" class="col-12">
+		<div class="us-product">
+			<div class="us-product-top d-flex">
+				<div class="us-product-left">
+					<div class="us-product-photo-main mb-4">
+
+
+						<div class="us-product-stickers">
+							<div class="us-product-stickers-item us-product-stickers-stickers_popular">
+								Популярный
+							</div>
+							<div class="us-product-stickers-item us-product-stickers-stickers_featured">
+								Рекомендуем
+							</div>
+						</div>
+
+						<a href="javascript:;" class="oct-gallery">
+							<img src="{{good.img.url}}" class="img-fluid" alt="Варежки «нецарапки» для новорожденных" title="Варежки «нецарапки» для новорожденных">
+						</a>
+					</div>
+				</div>
+				<div class="us-product-right">
+					<div class="us-product-info">
+						<ul class="us-product-info-list list-unstyled">
+							<li class="us-product-info-item us-product-info-item-manufacturer">Производители <a href="" class="us-product-link us-product-info-item-link">Sevibebe </a></li>
+							<li class="us-product-info-item us-product-info-item-stock">Наличие: <span class="us-product-info-is">В наличии</span></li>
+						</ul>
+						<div class="us-price-block us-price-block-not-special d-flex align-items-center">
+							<div class="us-price-actual">{{good.price}}₸</div>
+						</div>
+					</div>
+					<div id="product" class="us-product-action d-lg-flex justify-content-between">
+
+
+						<div class="us-product-action-left">
+							
+							<div class="us-product-quantity">
+								<form action="{% url 'cart:cart_add' good_id=good.id %}" method="post" >
+									<label class="control-label product-quantity-label" for="input-quantity">Кол-во:</label>
+									{{ cart_product_form.quantity }}
+									{{ cart_product_form.override }}
+								  	{% csrf_token %}
+								  	<button type="submit" class="us-product-btn us-product-btn-active">В корзину</button>
+								</form>
+								
+							</div>
+
+						</div>
+
+
+						<div class="us-product-action-right">
+							<div class="us-product-advantages-item d-flex justify-content-between align-items-center">
+								<div class="us-product-advantages-icon">
+									<i class="fa fa-truck"></i>
+								</div>
+								<div class="us-product-advantages-cont">
+									<a href="javascript:;" target="_blank" class="us-product-advantages-link">Быстрая доставка</a>
+									<p class="us-product-advantages-text"></p>
+								</div>
+							</div>
+							<div class="us-product-advantages-item d-flex justify-content-between align-items-center">
+								<div class="us-product-advantages-icon">
+									<i class="fa fa-history"></i>
+								</div>
+								<div class="us-product-advantages-cont">
+									<a href="javascript:;" target="_blank" class="us-product-advantages-link">14 дней для возврата</a>
+									<p class="us-product-advantages-text"></p>
+								</div>
+							</div>
+							<div class="us-product-advantages-item d-flex justify-content-between align-items-center">
+								<div class="us-product-advantages-icon">
+									<i class="fa fa-handshake-o"></i>
+								</div>
+								<div class="us-product-advantages-cont">
+									<a href="javascript:;" target="_blank" class="us-product-advantages-link">Индивидуальный подход</a>
+									<p class="us-product-advantages-text"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="us-product-description-nav list-unstyled d-flex align-items-center">
+				<li class="us-product-nav-item us-product-nav-item-active">
+					<a href="javascript:;">Обзор товара</a>
+				</li>
+			</ul>
+
+			<div class="us-product-description-cont">
+				<p>
+					{{good.description}}
+				</p>
+			</div>
+			<div id="us-product-page-reviews" class="us-reviews">
+				<div class="row">
+					<div class="col-12">
+						<div class="us-reviews-top d-flex justify-content-between align-items-start">
+							<div class="us-page-main-title">Отзывов 
+								{% with comments.count as total_comments %}
+								  
+								    ({{ total_comments }}) 
+								  
+								{% endwith %}
+							</div>
+							<button type="button" class="us-module-btn us-module-btn-green" data-toggle="modal" data-target="#us-review-modal">Написать отзыв</button>
+							<div class="modal" id="us-review-modal" tabindex="-1" role="dialog" aria-labelledby="us-review" aria-hidden="true" style="display: none;">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<div class="modal-title" id="us-review">Написать отзыв</div>
+											<button type="button" class="us-close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true" class="us-modal-close-icon us-modal-close-left"></span>
+												<span aria-hidden="true" class="us-modal-close-icon us-modal-close-right"></span>
+											</button>
+										</div>
+										<div class="modal-body us-modal-body-one-click d-flex">
+											
+												<div class="us-modal-body-one-click-left text-center">
+													<img src="{{good.img.url}}" class="us-modal-body-img" title="Варежки «нецарапки» для новорожденных" alt="Варежки «нецарапки» для новорожденных">
+													<div class="product_title">{{good.title}}</div>
+													
+												</div>
+												<div class="us-modal-body-one-click-right">
+													
+												 	<form class="row blog-comment-area" method="post" action="">
+												 		{% csrf_token %}
+												 		
+				                                       	<div class="col-sm-12 col-md-12 col-lg-12">  
+				                                            {{ form.name|add_class:"form-control"|append_attr:"placeholder:Name" }}
+				                                       	</div>
+				                                       	<div class="col-sm-12 col-md-12 col-lg-12">  
+				                                            {{ form.email|add_class:"form-control"|append_attr:"placeholder:e.g abr@bk.ru" }}
+				                                       	</div>
+				                                       	<div class="col-sm-12 col-md-12 col-lg-12">  
+				                                           {{ form.body|add_class:"form-control"|append_attr:"placeholder:Write your message" }}
+				                                       	</div>
+				                                        <div class="col-sm-12 col-md-12 col-lg-12">  
+				                                           <input type="submit" value="Добавить" class="us-module-btn us-module-btn-green">
+				                                       	</div>
+				                                  	</form>
+				                                  	
+												</div>
+										
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="review" style="margin-left: 30px;padding-bottom: 30px;">		
+					
+	            	{% for comment in comments %}
+	                <div class="review-item normal">
+	                    <b class="author d-block">{{comment.name}} <span class="date">{{comment.created}}</span></b>
+	                    
+	                    <p class="info">{{comment.body}}</p>
+	                </div>
+	                {% empty %}
+							<p>Пока нет комментариев.</p>
+	                {% endfor %}
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

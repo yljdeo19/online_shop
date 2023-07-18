@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block search %}
+<form action="{% url 'my_site:index' %}" method="get">
+
+
+    <div id="search" class="input-group header-input-group">
+	<input type="text" id="input_search" name="search_text" {% if search_text %} value="{{search_text}}" {% endif %} placeholder="Поиск" class="input-lg h-100 header-input">
+	<button type="button" id="oct-search-button" class="btn btn-search header-btn-search h-100"><i class="fa fa-search"></i></button>
+	<div id="us_livesearch_close" onclick="clearLiveSearch();"><i class="fas fa-times"></i></div>
+	<div id="us_livesearch"></div>
+</div>
+    					</form>
+{% endblock %}
+{% block content %}
+<div id="common-home" class="container">
+		<div class="row row-padding-top">
+			<div class="col-lg-12 us-slideshow-plus-box">
+				<div id="us-slideshow-plus-0" class="owl-carousel">
+					<div class="us-slideshow-plus-item us-slideshow-plus-item_1 d-flex align-items-center justify-content-between h-100">
+						<div class="us-slideshow-plus-item-info">
+							<p class="us-slideshow-plus-item-title">Одежда для новорожденных</p>
+							<p class="us-slideshow-plus-item-text">Одежда особо маленького размера изготовлена специально для недоношенного (маловесного) ребенка. Ваш малыш не останется обделённым и очень скоро догонит своих сверстников.</p>
+
+						</div>
+						<div class="us-slideshow-plus-item-img">
+							<img src="{% static 'img/1-600x450.png' %}" alt="Одежда для новорожденных">
+						</div>
+
+					</div>
+					<div class="us-slideshow-plus-item us-slideshow-plus-item_2 d-flex align-items-center justify-content-between h-100">
+						<div class="us-slideshow-plus-item-info">
+							<p class="us-slideshow-plus-item-title">Кормление и питание</p>
+							<p class="us-slideshow-plus-item-text">Правильное кормление новорождённого в первые дни жизни – такой же важный элемент роста и развития, как мамина забота, уход за крохой.</p>
+						</div>
+						<div class="us-slideshow-plus-item-img">
+							<img src="{% static 'img/2-600x450.png' %}" alt="Кормление и питание">
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$( document ).ready(function() {
+				$('#us-slideshow-plus-0').owlCarousel({
+					items: 1,
+					loop: true,
+					autoplay: true,
+					autoplayHoverPause: true,
+					autoplayTimeout: 5000,
+					autoplaySpeed: 500,
+					navigation: false,
+					pagination: true 
+				});
+			});
+		</script>
+
+		<div id="us-shop-advantages-0" class="row row-padding-top">
+			<div class="col-md-6 col-lg-3 us-advantages-item">
+				<div class="us-advantages-box d-flex align-items-center justify-content-start h-100" id="block1">
+					<div class="us-advantages-img">
+						<i class="fa fa-truck"></i>
+					</div>
+					<div class="us-advantages-cont">
+						<div class="us-advantages-title">
+							<a href="">Оперативная доставка</a>
+						</div>
+						<p class="us-advantages-text">
+							Осуществляется курьерской службой АО &quot;KAZPOST&quot; и TOO &quot;Avis Logistics&quot;
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3 us-advantages-item">
+				<div class="us-advantages-box d-flex align-items-center justify-content-start h-100" id="block2">
+					<div class="us-advantages-img">
+						<i class="fa fa-money" aria-hidden="true"></i>
+					</div>
+					<div class="us-advantages-cont">
+						<div class="us-advantages-title">
+							Доступные цены
+						</div>
+						<p class="us-advantages-text">
+							Наша цель – быть доступными, поэтому наши цены всегда были и есть в среднем ценовом диапазоне.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3 us-advantages-item">
+				<div class="us-advantages-box d-flex align-items-center justify-content-start h-100" id="block3">
+					<div class="us-advantages-img">
+						<i class="fa fa-leaf"></i>
+					</div>
+					<div class="us-advantages-cont">
+						<div class="us-advantages-title">
+							Тестировано &amp; Безопасно
+						</div>
+						<p class="us-advantages-text">
+							Наши товары сертифицированы, регулярно проходят токсикологическую проверку и безопасны для детей.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3 us-advantages-item">
+				<div class="us-advantages-box d-flex align-items-center justify-content-start h-100" id="block4">
+					<div class="us-advantages-img">
+						<i class="fa fa-history"></i>
+					</div>
+					<div class="us-advantages-cont">
+						<div class="us-advantages-title">
+							14 дней для возврата
+						</div>
+						<p class="us-advantages-text">
+							Если изделие Вам не подошло по размеру, Вы можете его вернуть или поменять на другое в течении 2 недель.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<div class="row row-padding-top">
+	<div class="col-lg-12">
+		<div class="us-main-shop-title us-categories-wall-header">Категории</div>
+	</div>
+</div>
+<div class="row us-categories-wall-row">
+
+	<div class="col-md-6 col-lg-4 col-xl-3">
+		<div class="us-categories-wall-item">
+			<a href="" class="us-categories-wall-top-link">
+				<div class="us-categories-wall-title">Одежда</div>
+			</a>
+			<hr>
+			<ul class="us-categories-wall-list list-unstyled">
+				<li class="us-categories-wall-child">
+					<a href="{% url 'my_site:index' %}">Все</a>
+				</li>
+				{% for category in categories %}
+				<li  class="us-categories-wall-child">
+					<a href="{% url 'my_site:index' category=category.id %}">{{category.title}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<div class="row">
+			{% for good in goods %}
+			<div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 us-item" style="display: block;">
+    			<div class="us-module-item d-flex flex-column">
+    				{% if good.is_discount %}
+    				<div class="us-module-stickers">
+						<div class="us-module-stickers-sticker us-module-stickers-sticker-stickers_popular">
+							Популярный
+						</div>
+						<div class="us-module-stickers-sticker us-module-stickers-sticker-stickers_featured">
+							Рекомендуем
+						</div>
+					</div>
+					{% endif %}
+					{% if good.img %}
+			      	<div class="us-module-img">
+			      		<a href="{% url 'my_site:detail' good.id %}"><img src="{{good.img.url}}" class="" style="width: 100%; height: 270px;" alt=""></a>
+			      	</div>
+			      	{% endif %}
+      				<div class="us-module-title flex-grow-1">
+						<a href="">{{good.title}}</a>
+					</div>
+		        	<div class=" d-flex align-items-center justify-content-center">
+                        <div class="us-module-price">
+                    		<span class="us-module-price-actual">{{good.price}}₸</span>
+                        </div>
+                		
+   					 </div>
+   					<form action="{% url 'cart:cart_add' good_id=good.id %}" method="post" class="">
+						{{ cart_product_form.quantity }}
+						{{ cart_product_form.override }}
+					  	{% csrf_token %}
+					  	<button class="btn button-cart" style="display: block; color: #FFF !important;text-transform: uppercase;background: #284277; width: 90%; margin: 10px auto; " type="submit" >В корзину</button>
+					</form>
+ 				 </div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+</div>
+<div class="row row-padding-top">
+			<div class="col-12">
+				<div class="us-html-box">
+					<h1>Наши партнеры</h1>
+					<div class="us-html-box-text"><div class="container">
+						<div class="row justify-content-md-center">
+							<div class="col-md-4">
+								<img class="img-responsive" src="{% static 'img/1-p.jpg' %}" style="width: 350px;">
+							</div>
+							<div class="col-md-4">
+								<img class="img-responsive" src="{% static 'img/2-p.jpg' %}" style="width: 350px;">
+							</div>
+							<div class="col-md-4">
+								<img class="img-responsive" src="{% static 'img/3-p.jpg' %}" style="width: 350px;">
+							</div>
+						</div>
+					</div></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

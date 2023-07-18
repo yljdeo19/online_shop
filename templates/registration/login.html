@@ -1,0 +1,36 @@
+<style type="text/css">
+  input{
+    width: 100%;
+    height: 34px;
+    border-radius: 0;
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+</style>
+<div class="" style="width: 30%;border: 1px solid #ddd;margin: 100px auto;padding: 15px;">
+  <h1 style="text-align: center;">Вход</h1>
+  {% if form.errors %}
+    <p style="text-align: center;">
+   Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.
+    </p>
+  {% else %}
+    <p style="text-align: center;">Используйте следующую форму для входа в систему</p>
+  {% endif %}
+  <div class="login-form">
+    <form action="{% url 'login' %}" method="post" style="padding:20px;">
+      {% csrf_token %}
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px;">Имя пользователя</label>
+        {{ form.username }}
+      </div>
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px;">Пароль</label>
+        {{ form.password }}
+      </div>
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <p><input type="submit" value="Перейти на следующую страницу" style="width: 100%;border: 1px solid #ddd;padding: 10px;margin-bottom: 15px; margin-top: 15px; font-weight: bold;"></p>
+      <a href="{% url 'my_site:registration' %}">registration</a>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<section class="checkout-section spad" style="margin-top:20px; ">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ul class="breadcrumb us-breadcrumb">
+          <li class="breadcrumb-item us-breadcrumb-item"><a href="{% url 'my_site:index' %}"><i class="fa fa-home"></i>Главный</a></li>       
+        </ul>
+      </nav>
+      <div class="row">
+        <div class="col-lg-8 order-2 order-lg-1">
+          <form class="checkout-form" method="post">
+            {% csrf_token %}
+            <div class="cf-title">Заполните форму ниже, чтобы заказать</div>
+            <div class="row address-inputs">
+              <div class="col-md-12" style="margin-bottom: 10px;">
+                {{form.first_name|add_class:"form-control"|append_attr:"placeholder:Имя*"}}
+              
+              </div>
+              <div class="col-md-12" style="margin-bottom: 10px;">
+                {{form.last_name|add_class:"form-control"|append_attr:"placeholder:Фамилия*"}}
+              </div>
+              <div class="col-md-6" style="margin-bottom: 10px;">
+                {{form.address|add_class:"form-control"|append_attr:"placeholder:Адрес*"}}
+              </div>
+              <div class="col-md-6" style="margin-bottom: 10px;">
+                {{form.email|add_class:"form-control"|append_attr:"placeholder:Email*"}}
+              </div>
+              <div class="col-md-6" style="margin-bottom: 10px;">
+                {{form.postal_code|add_class:"form-control"|append_attr:"placeholder:Почтовый индекс*"}}
+              </div>
+              <div class="col-md-6" style="margin-bottom: 10px;">
+                {{form.city|add_class:"form-control"|append_attr:"placeholder:Город*"}}
+              </div>
+            </div>
+            <button class="site-btn submit-order-btn btn btn-primary">Купить</button>
+          </form>
+        </div>
+        <div class="col-lg-4 order-1 order-lg-2">
+          <div class="checkout-cart">
+            <h3>Доступно в корзине</h3>
+            <ul class="product-list" >
+              {% for item in cart %}
+              <li style="margin-bottom: 10px;margin-top: 10px;">
+                <div class="pl-thumb"><img src="{{item.good.img.url}}" alt="" style="width: 100%;height: 200px;margin-bottom: 15px;"></div>
+                <h6>{{ item.good.title }}<span> ( * {{item.quantity}} )</span></h6>
+                <p>{{ item.total_price }}₸</p>
+              </li>
+              {% endfor %}
+            </ul>
+            <ul class="price-list">
+              <li class="total">Общая сумма<span> {{ cart.get_total_price }}₸</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

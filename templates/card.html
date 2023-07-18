@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+	<section class="cart-section spad">
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ul class="breadcrumb us-breadcrumb">
+					<li class="breadcrumb-item us-breadcrumb-item"><a href="{% url 'my_site:index' %}"><i class="fa fa-home"></i>Главный</a></li>				
+				</ul>
+			</nav>
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="cart-table" style="margin-top:20px;">
+						<h3>Ваша корзина</h3>
+						<div class="cart-table-warp">
+							<table class="table">
+							<thead>
+								<tr>
+									<th class="product-th">Товар</th>
+									<th class="quy-th">Номер</th>
+									<th class="size-th">Выключить</th>
+									<th class="total-th">Цена</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in cart %}
+									 {% with good=item.good %}
+										<tr>
+											<td class="product-col">
+												<img src="{{ good.img.url }}" alt="" style="width: 100px;height: 100px;">
+												<div class="pc-title">
+													<h4>{{ good.title }}</h4>
+													<p>{{ item.price }}₸</p>
+												</div>
+											</td>
+											<td class="quy-col">
+												<div class="">
+							                        <div class="">
+														  <form action="{% url 'cart:cart_add' good.id %}" method="post" class="d-flex">
+														    {{ item.update_quantity_form.quantity}}
+														    {{ item.update_quantity_form.override }}
+														    <input type="submit" value="Обновлять" class="btn btn-primary">
+														    {% csrf_token %}
+														  </form>
+													</div>
+		                    					</div>
+											</td>
+											<td class="size-col">
+												<h4>
+												<form action="{% url 'cart:cart_remove' good_id=good.id %}" method="post">
+		                							<input type="submit" value="Удалить" class="btn btn-danger">
+		               								 {% csrf_token %}
+		              							</form>
+		              							</h4></td>
+											<td class="total-col"><h4>{{ item.total_price }}₸</h4></td>
+										</tr>
+									{% endwith %}
+     							{% endfor %}
+							</tbody>
+						</table>
+						</div>
+						<div class="total-cost" style="margin-top:10px;margin-bottom: 10px;">
+							<h6>Общая сумма<span> {{ cart.get_total_price }}₸</span></h6>
+						</div>
+					</div>
+					<div class="card-right" style="float: right;">
+						<a href="{% url 'orders:order_create' %}" class="btn btn-primary site-btn">Купить</a>
+						<a href="{% url 'my_site:index' %}" class="site-btn sb-dark">Перейти на главную страницу</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+{% endblock %}
